@@ -1,0 +1,10 @@
+[Unit]
+Description=Makerspace Door Control
+After=multi-user.target
+
+[Service]
+User=pi
+ExecStart=/usr/bin/python3 /home/pi/portal/ctest3.py 
+
+[Install]
+WantedBy=multi-user.target
