@@ -19,6 +19,9 @@ ipAddr = socket.gethostbyname(hostname)
 print(f"Serving from: http://{hostname}.local:{port}")
 print(f"at IP: http://{ipAddr}:{port}")
 
+with open("log.txt","w") as f:
+     f.write(f"Serving from: http://{hostname}.local:{port} at IP: http://{ipAddr}:{port}")
+    
 
 ''' Function to convert the post data to an array for easier use'''
 def postDataToArray(postData):
