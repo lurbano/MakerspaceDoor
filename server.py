@@ -44,7 +44,7 @@ class uHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/':
             self.path = f"{homedir}/index.html"
-            print ("path"+self.path)
+            print ("path: "+self.path[1:])
         try:
             file_to_open = open(self.path[1:]).read()
             self.send_response(200)
