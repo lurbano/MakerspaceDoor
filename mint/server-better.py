@@ -67,12 +67,13 @@ class uHTTPRequestHandler(BaseHTTPRequestHandler):
         rData['status'] = ""
         
         
-        if data['action'] == "getTime":
+        if data['action'] == "getDoor":
             now = datetime.now()
 
+
             print(now.ctime())
-            rData['item'] = "time"
-            rData['status'] = now.ctime() # a string representing the current time
+            rData['item'] = "getDoor"
+            rData['status'] = s1.value 
 
  
 
@@ -104,6 +105,18 @@ print (isopen)
 
 while True:
     httpd.handle_request()
+    if (s1.value != isopen):
+        isopen = s1.value
+        if isopen == True:
+                print("closed")
+                os.system(f"sudo python3 /home/pi/door/led_close.py &")
+        else:
+                print("open")
+                os.system(f"sudo python3 /home/pi/door/led_open.py &")
+                soundFile = f"{random.choices(filelist, weights = (1, 30, 10), k = 1)[0]}"
+                cmd = f"cvlc --play-and-exit {soundFile}"
+                print ("sound",cmd)
+                os.system(cmd)
     time.sleep(0.1)
 
 

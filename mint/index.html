@@ -11,23 +11,7 @@ body {
 </style>
 </head>
 <body>
-    <input type="button" id = "timeBut" value="Get Door">
-    <div id="timeSlot">Status</div>
-    <div id="MkspPhotoResistor"></div>
-<style>
-.button {
-    background-color: #04AA6D;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-  }
-</style>
+    <div id="docStatus">Status</div>
 </body>
 
 <script>
@@ -43,9 +27,9 @@ body {
                 console.log("data['item']:", data["item"]);
                 
                 //Handle responses
-                if (data["item"] == "time") {
-                    console.log("Got the time: ", data["status"]);
-                    timeSlot.innerText = data["status"];
+                if (data["item"] == "getDoor") {
+                    console.log("Got the door: ", data["status"]);
+                    docStatus.innerText = data["status"];
                 }
             }
         }
@@ -56,11 +40,10 @@ body {
         xR.open("POST", target, true);
         xR.send(JSON.stringify(data));
     }
-
-    timeBut.addEventListener("click", function(){
-        sendRequest("/", "getTime");
-    })
-
+    setInterval(doorCheck,1000);
+    function doorCheck(){
+        sendRequest("/", "getDoor");
+    }
 </script>
 
 </html>
