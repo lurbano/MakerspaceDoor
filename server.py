@@ -19,7 +19,7 @@ ipAddr = socket.gethostbyname(hostname)
 print(f"Serving from: http://{hostname}.local:{port}")
 print(f"at IP: http://{ipAddr}:{port}")
 
-with open("log.txt","w") as f:
+with open("/home/pi/MakerspaceDoor/log.txt","w") as f:
      f.write(f"Serving from: http://{hostname}.local:{port} at IP: http://{ipAddr}:{port}")
     
 
