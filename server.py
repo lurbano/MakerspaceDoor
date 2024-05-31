@@ -12,6 +12,8 @@ import glob
 
 from datetime import datetime
 
+homedir="/home/pi/MakerspaceDoor"
+
 port = 8000
 hostname=socket.gethostname()
 ipAddr = socket.gethostbyname(hostname)
@@ -19,7 +21,7 @@ ipAddr = socket.gethostbyname(hostname)
 print(f"Serving from: http://{hostname}.local:{port}")
 print(f"at IP: http://{ipAddr}:{port}")
 
-with open("/home/pi/MakerspaceDoor/log.txt","w") as f:
+with open(f"{homedir}/log.txt","w") as f:
      f.write(f"Serving from: http://{hostname}.local:{port} at IP: http://{ipAddr}:{port}")
     
 
@@ -41,7 +43,7 @@ class uHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         if self.path == '/':
-            self.path = '/home/pi/MakerspaceDoor/index.html'
+            self.path = f"{homedir}/index.html"
         try:
             file_to_open = open(self.path[1:]).read()
             self.send_response(200)
@@ -86,16 +88,16 @@ class uHTTPRequestHandler(BaseHTTPRequestHandler):
 httpd = HTTPServer(('', port), uHTTPRequestHandler)
 # httpd.serve_forever()
 
-os.system(f"sudo python3 /home/pi/MakerspaceDoor/led_startup.py &")
+os.system(f"sudo python3 {homedir}/led_startup.py &")
 
 os.system('amixer cset numid=1 100%')
-os.system("cvlc --play-and-exit /home/pi/MakerspaceDoor/portal_start.mp3")
+os.system(f"cvlc --play-and-exit {homedir}/portal_start.mp3")
 # subprocess.Popen('amixer cset numid=1 100%', shell=True)
 # subprocess.Popen("cvlc --play-and-exit /home/pi/portal/portal_start.mp3", shell=True)
 
 
 # filelist = os.listdir("/home/pi/portal/Sounds/*.mp3")
-filelist = glob.glob ("/home/pi/MakerspaceDoor/Sounds/*.mp3")
+filelist = glob.glob (f"{homedir}/Sounds/*.mp3")
 print(filelist)
 
 
