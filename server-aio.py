@@ -55,6 +55,7 @@ async def print_hello():
         await asyncio.sleep(1)
 
 async def doorSensor():
+    global isopen
     if (s1.value != isopen):
         isopen = s1.value
         if isopen == True:
@@ -92,11 +93,12 @@ async def main():
     asyncio.create_task(doorSensor())
 
     # startup sound
+    print("playing startup sound file", f"sudo python3 {homedir}/led_startup.py &")
     os.system(f"sudo python3 {homedir}/led_startup.py &")
     os.system('amixer cset numid=1 100%')
     os.system(f"cvlc --play-and-exit {homedir}/portal_start.mp3")
 
-    asyncio.create_task(print_hello())
+    # asyncio.create_task(print_hello())
     # asyncio.create_task(getLightLevel(dt=5))
 
     '''Testing post request'''
