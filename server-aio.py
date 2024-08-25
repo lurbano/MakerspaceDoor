@@ -73,6 +73,8 @@ async def doorSensor():
 s1 = digitalio.DigitalInOut(board.D17)
 s1.direction = digitalio.Direction.INPUT
 s1.pull = digitalio.Pull.DOWN
+isopen = s1.value
+print (isopen)
 
 async def main():
     app = web.Application()
