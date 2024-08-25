@@ -93,7 +93,7 @@ async def main():
     asyncio.create_task(doorSensor())
 
     # startup sound
-    print("playing startup sound file", f"sudo python3 {homedir}/led_startup.py &")
+    print("playing startup sound file", f"cvlc --play-and-exit {homedir}/portal_start.mp3")
     os.system(f"sudo python3 {homedir}/led_startup.py &")
     os.system('amixer cset numid=1 100%')
     os.system(f"cvlc --play-and-exit {homedir}/portal_start.mp3")
